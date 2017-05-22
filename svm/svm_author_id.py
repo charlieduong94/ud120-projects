@@ -21,9 +21,20 @@ from sklearn import svm
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
-
-classifier = svm.SVC(kernel='linear')
+classifier = svm.SVC(kernel='rbf', C=10000)
 
 classifier.fit(features_train, labels_train)
+
+predictions = classifier.predict(features_test)
+chrisCount = 0
+
+for number in predictions:
+    if number == 1:
+        chrisCount += 1
+
+saraCount = len(predictions) - chrisCount
+
+print "Chris:", chrisCount
+print "Sara:", saraCount
 
 print 'Accuracy:', classifier.score(features_test, labels_test)
